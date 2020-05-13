@@ -3,6 +3,9 @@ This is a Docker container for [ngPost](https://github.com/mbruel/ngPost).
 
 The GUI of the application is accessed through a modern web browser (no installation or configuration needed on client side) or via any VNC client.
 
+BIG thanks to Jocelyn Le Sage (https://github.com/jlesage) for the base of this image.
+I'm only the script-kiddie who modified it for his own needs :).
+
 ---
 
 <img align="left" width="80" height="80" src="https://raw.githubusercontent.com/mbruel/ngPost/master/src/resources/icons/ngPost.png" alt="ngPost">
