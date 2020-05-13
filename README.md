@@ -1,21 +1,21 @@
-# Docker container for MediaInfo
-[![Docker Image Size](https://img.shields.io/microbadger/image-size/jlesage/mediainfo)](http://microbadger.com/#/images/jlesage/mediainfo) [![Build Status](https://drone.le-sage.com/api/badges/jlesage/docker-mediainfo/status.svg)](https://drone.le-sage.com/jlesage/docker-mediainfo) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-mediainfo.svg)](https://github.com/jlesage/docker-mediainfo/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage/0usd)
-
-This is a Docker container for [MediaInfo](https://mediaarea.net/en/MediaInfo).
+# Docker container for ngPost
+This is a Docker container for [ngPost](https://github.com/mbruel/ngPost).
 
 The GUI of the application is accessed through a modern web browser (no installation or configuration needed on client side) or via any VNC client.
 
 ---
 
-[![MediaInfo logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/mediainfo-icon.png&w=200)](https://mediaarea.net/en/MediaInfo)[![MediaInfo](https://dummyimage.com/400x110/ffffff/575757&text=MediaInfo)](https://mediaarea.net/en/MediaInfo)
+<img align="left" width="80" height="80" src="https://raw.githubusercontent.com/mbruel/ngPost/master/src/resources/icons/ngPost.png" alt="ngPost">
 
-MediaInfo is a convenient unified display of the most relevant technical and tag data for video and audio files.
+# ngPost v4.7
+
+ngPost is a convenient unified client to post files to usenet.
 
 ---
 
 ## Table of Content
 
-   * [Docker container for MediaInfo](#docker-container-for-mediainfo)
+   * [Docker container for ngPost](#docker-container-for-ngPost)
       * [Table of Content](#table-of-content)
       * [Quick Start](#quick-start)
       * [Usage](#usage)
@@ -44,32 +44,32 @@ MediaInfo is a convenient unified display of the most relevant technical and tag
 **NOTE**: The Docker command provided in this quick start is given as an example
 and parameters should be adjusted to your need.
 
-Launch the MediaInfo docker container with the following command:
+Launch the ngPost docker container with the following command:
 ```
 docker run -d \
-    --name=mediainfo \
+    --name=ngPost \
     -p 5800:5800 \
-    -v /docker/appdata/mediainfo:/config:rw \
+    -v /docker/appdata/ngPost:/config:rw \
     -v $HOME:/storage:ro \
-    jlesage/mediainfo
+    tr4il/ngPost
 ```
 
 Where:
-  - `/docker/appdata/mediainfo`: This is where the application stores its configuration, log and any files needing persistency.
+  - `/docker/appdata/ngPost`: This is where the application stores its configuration, log and any files needing persistency.
   - `$HOME`: This location contains files from your host that need to be accessible by the application.
 
-Browse to `http://your-host-ip:5800` to access the MediaInfo GUI.
+Browse to `http://your-host-ip:5800` to access the ngPost GUI.
 Files from the host appear under the `/storage` folder in the container.
 
 ## Usage
 
 ```
 docker run [-d] \
-    --name=mediainfo \
+    --name=ngPost \
     [-e <VARIABLE_NAME>=<VALUE>]... \
     [-v <HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]]... \
     [-p <HOST_PORT>:<CONTAINER_PORT>]... \
-    jlesage/mediainfo
+    tr4il/ngPost
 ```
 | Parameter | Description |
 |-----------|-------------|
@@ -135,11 +135,11 @@ re-create the container:
 
   1. Stop the container (if it is running):
 ```
-docker stop mediainfo
+docker stop ngPost
 ```
   2. Remove the container:
 ```
-docker rm mediainfo
+docker rm ngPost
 ```
   3. Create/start the container using the `docker run` command, by adjusting
      parameters as needed.
@@ -160,13 +160,13 @@ ports are part of the example.
 ```yaml
 version: '3'
 services:
-  mediainfo:
-    image: jlesage/mediainfo
+  ngPost:
+    image: tr4il/ngPost
     build: .
     ports:
       - "5800:5800"
     volumes:
-      - "/docker/appdata/mediainfo:/config:rw"
+      - "/docker/appdata/ngPost:/config:rw"
       - "$HOME:/storage:ro"
 ```
 
@@ -177,15 +177,15 @@ the Docker image, the following steps can be followed:
 
   1. Fetch the latest image:
 ```
-docker pull jlesage/mediainfo
+docker pull tr4il/ngPost
 ```
   2. Stop the container:
 ```
-docker stop mediainfo
+docker stop ngPost
 ```
   3. Remove the container:
 ```
-docker rm mediainfo
+docker rm ngPost
 ```
   4. Start the container using the `docker run` command.
 
@@ -196,11 +196,11 @@ container image.
 
   1.  Open the *Docker* application.
   2.  Click on *Registry* in the left pane.
-  3.  In the search bar, type the name of the container (`jlesage/mediainfo`).
+  3.  In the search bar, type the name of the container (`tr4il/ngPost`).
   4.  Select the image, click *Download* and then choose the `latest` tag.
   5.  Wait for the download to complete.  A  notification will appear once done.
   6.  Click on *Container* in the left pane.
-  7.  Select your MediaInfo container.
+  7.  Select your ngPost container.
   8.  Stop it by clicking *Action*->*Stop*.
   9.  Clear the container by clicking *Action*->*Clear*.  This removes the
       container while keeping its configuration.
@@ -345,7 +345,7 @@ In this scenario, each hostname is routed to a different application/container.
 
 For example, let's say the reverse proxy server is running on the same machine
 as this container.  The server would proxy all HTTP requests sent to
-`mediainfo.domain.tld` to the container at `127.0.0.1:5800`.
+`ngPost.domain.tld` to the container at `127.0.0.1:5800`.
 
 Here are the relevant configuration elements that would be added to the NGINX
 configuration:
@@ -356,7 +356,7 @@ map $http_upgrade $connection_upgrade {
 	''      close;
 }
 
-upstream docker-mediainfo {
+upstream docker-ngPost {
 	# If the reverse proxy server is not running on the same machine as the
 	# Docker container, use the IP of the Docker host here.
 	# Make sure to adjust the port according to how port 5800 of the
@@ -367,14 +367,14 @@ upstream docker-mediainfo {
 server {
 	[...]
 
-	server_name mediainfo.domain.tld;
+	server_name ngPost.domain.tld;
 
 	location / {
-	        proxy_pass http://docker-mediainfo;
+	        proxy_pass http://docker-ngPost;
 	}
 
 	location /websockify {
-		proxy_pass http://docker-mediainfo;
+		proxy_pass http://docker-ngPost;
 		proxy_http_version 1.1;
 		proxy_set_header Upgrade $http_upgrade;
 		proxy_set_header Connection $connection_upgrade;
@@ -391,7 +391,7 @@ route to different applications/containers.
 
 For example, let's say the reverse proxy server is running on the same machine
 as this container.  The server would proxy all HTTP requests for
-`server.domain.tld/mediainfo` to the container at `127.0.0.1:5800`.
+`server.domain.tld/ngPost` to the container at `127.0.0.1:5800`.
 
 Here are the relevant configuration elements that would be added to the NGINX
 configuration:
@@ -402,7 +402,7 @@ map $http_upgrade $connection_upgrade {
 	''      close;
 }
 
-upstream docker-mediainfo {
+upstream docker-ngPost {
 	# If the reverse proxy server is not running on the same machine as the
 	# Docker container, use the IP of the Docker host here.
 	# Make sure to adjust the port according to how port 5800 of the
@@ -413,11 +413,11 @@ upstream docker-mediainfo {
 server {
 	[...]
 
-	location = /mediainfo {return 301 $scheme://$http_host/mediainfo/;}
-	location /mediainfo/ {
-		proxy_pass http://docker-mediainfo/;
-		location /mediainfo/websockify {
-			proxy_pass http://docker-mediainfo/websockify/;
+	location = /ngPost {return 301 $scheme://$http_host/ngPost/;}
+	location /ngPost/ {
+		proxy_pass http://docker-ngPost/;
+		location /ngPost/websockify {
+			proxy_pass http://docker-ngPost/websockify/;
 			proxy_http_version 1.1;
 			proxy_set_header Upgrade $http_upgrade;
 			proxy_set_header Connection $connection_upgrade;
@@ -436,7 +436,7 @@ docker exec -ti CONTAINER sh
 ```
 
 Where `CONTAINER` is the ID or the name of the container used during its
-creation (e.g. `crashplan-pro`).
+creation (e.g. `ngPost`).
 
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
@@ -445,6 +445,6 @@ creation (e.g. `crashplan-pro`).
 Having troubles with the container or have questions?  Please
 [create a new issue].
 
-For other great Dockerized applications, see https://jlesage.github.io/docker-apps.
+For other great Dockerized applications by the guy who built the fundamentals for this image, see https://jlesage.github.io/docker-apps.
 
-[create a new issue]: https://github.com/jlesage/docker-mediainfo/issues
+[create a new issue]: https://github.com/tr4il/docker-ngPost/issues
