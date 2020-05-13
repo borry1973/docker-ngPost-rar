@@ -11,7 +11,7 @@ FROM jlesage/baseimage-gui:alpine-3.9-v3.5.3
 ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
-ARG NGPOST_VERSION=v4.7
+ARG NGPOST_VERSION=4.7
 
 # Define software download URLs.
 ARG NGPOST_URL=https://github.com/mbruel/ngPost/releases/v${NGPOST_VERSION}.tar.gz
