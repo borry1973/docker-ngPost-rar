@@ -11,64 +11,58 @@ FROM jlesage/baseimage-gui:alpine-3.9-v3.5.3
 ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
-ARG MEDIAINFO_VERSION=20.03
+ARG NGPOST_VERSION=v4.7
 
 # Define software download URLs.
-ARG MEDIAINFO_URL=https://github.com/MediaArea/MediaInfo/archive/v${MEDIAINFO_VERSION}.tar.gz
+ARG NGPOST_URL=https://github.com/mbruel/ngPost/releases/v${NGPOST_VERSION}.tar.gz
 
 # Define working directory.
 WORKDIR /tmp
 
 # Install dependencies.
 RUN add-pkg \
-        mediainfo \
-        mesa-dri-swrast \
-        qt5-qtsvg
-
+        qt5-qtsvg \
+        qt5-default \
+        libssl-dev \
+        libressl-dev \
+        build-essential \
+        qt5-qmake \
+        qt5-qtbase-dev
 # Compile and install MediaInfo.
 RUN \
-    # Install packages needed by the build.
-    add-pkg --virtual build-dependencies \
-        build-base \
-        curl \
-        qt5-qtbase-dev \
-        libmediainfo-dev \
-        && \
     # Download sources.
-    echo "Downloading MediaInfo package..." && \
-    mkdir mediainfo && \
-    curl -# -L ${MEDIAINFO_URL} | tar xz --strip 1 -C mediainfo && \
+    echo "Downloading ngPost package..." && \
+    mkdir ngPost && \
+    curl -# -L ${NGPOST_URL} | tar xz --strip 1 -C ngPost && \
     # Compile.
-    cd mediainfo/Project/QMake/GUI && \
+    cd ngPost/src && \
     /usr/lib/qt5/bin/qmake && \
-    make -j$(nproc) install && \
-    cd ../../../../ && \
-    # Install
-    strip -v /usr/bin/mediainfo-gui && \
-    cd ../ && \
+    make && \
+    cp ngPost /usr/bin/ngPost && \
+    cd && \
     # Cleanup.
-    del-pkg build-dependencies && \
     rm -rf /tmp/* /tmp/.[!.]*
 
 # Generate and install favicons.
 RUN \
-    APP_ICON_URL=https://github.com/jlesage/docker-templates/raw/master/jlesage/images/mediainfo-icon.png && \
+    APP_ICON_URL=https://raw.githubusercontent.com/mbruel/ngPost/master/src/resources/icons/ngPost.png && \
     install_app_icon.sh "$APP_ICON_URL"
 
 # Add files.
 COPY rootfs/ /
 
 # Set environment variables.
-ENV APP_NAME="MediaInfo"
+ENV APP_NAME="ngPost"
 
 # Define mountable directories.
 VOLUME ["/config"]
 VOLUME ["/storage"]
+VOLUME ["/mnt"]
 
 # Metadata.
 LABEL \
-      org.label-schema.name="mediainfo" \
-      org.label-schema.description="Docker container for MediaInfo" \
+      org.label-schema.name="ngPost" \
+      org.label-schema.description="Docker container for ngPost" \
       org.label-schema.version="$DOCKER_IMAGE_VERSION" \
-      org.label-schema.vcs-url="https://github.com/jlesage/docker-mediainfo" \
+      org.label-schema.vcs-url="https://github.com/Tr4il/docker-ngPost" \
       org.label-schema.schema-version="1.0"
