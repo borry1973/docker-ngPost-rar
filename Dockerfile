@@ -22,7 +22,6 @@ WORKDIR /tmp
 # Install dependencies.
 RUN add-pkg \
         qt5-qtsvg \
-        qt5-qmake \
         qt5-qtbase-dev \
         libssl1.1 \
         libressl-dev \
