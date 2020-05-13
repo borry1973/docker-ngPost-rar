@@ -14,7 +14,7 @@ ARG DOCKER_IMAGE_VERSION=unknown
 ARG NGPOST_VERSION=4.7
 
 # Define software download URLs.
-ARG NGPOST_URL=https://github.com/mbruel/ngPost/releases/v${NGPOST_VERSION}.tar.gz
+ARG NGPOST_URL=https://github.com/mbruel/ngPost/archive/v${NGPOST_VERSION}.tar.gz
 
 # Define working directory.
 WORKDIR /tmp
