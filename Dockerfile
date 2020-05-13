@@ -26,9 +26,9 @@ RUN add-pkg \
         qt5-qtbase-dev \
         libssl1.1 \
         libressl-dev \
-        build-base \
-        
+        build-base
 # Compile and install MediaInfo.
+
 RUN \
     # Download sources.
     echo "Downloading ngPost package..." && \
