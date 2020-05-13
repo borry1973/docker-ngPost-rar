@@ -22,12 +22,12 @@ WORKDIR /tmp
 # Install dependencies.
 RUN add-pkg \
         qt5-qtsvg \
-        qt5-default \
-        libssl-dev \
-        libressl-dev \
-        build-essential \
         qt5-qmake \
-        qt5-qtbase-dev
+        qt5-qtbase-dev \
+        libssl1.1 \
+        libressl-dev \
+        build-base \
+        
 # Compile and install MediaInfo.
 RUN \
     # Download sources.
