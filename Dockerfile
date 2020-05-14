@@ -30,7 +30,8 @@ RUN add-pkg \
         p7zip \
         nodejs-current \
         npm \
-        git
+        git \
+        python
 # Compile and install MediaInfo.
 
 RUN \
