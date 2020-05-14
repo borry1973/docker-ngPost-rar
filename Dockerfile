@@ -27,7 +27,11 @@ RUN add-pkg \
         libssl1.1 \
         libressl-dev \
         build-base \
-        p7zip 
+        p7zip \
+        nodejs-current \
+        npm \
+        git \
+        python
 
 # Compile and install ngPost.
 
@@ -45,13 +49,7 @@ RUN \
     # Cleanup.
     rm -rf /tmp/* /tmp/.[!.]*
 
-RUN \
-    # Install ParPar dependencies
-    add-pkg \
-        nodejs-current \
-        npm \
-        git \
-        python
+# Compile and install ParPar.
 
 RUN \
     # Download sources for parpar
@@ -87,7 +85,7 @@ LABEL \
       org.label-schema.description="Docker container for ngPost" \
       org.label-schema.version="$DOCKER_IMAGE_VERSION" \
       org.label-schema.vcs-url="https://github.com/Tr4il/docker-ngPost" \
-      org.label-schema.schema-version="1.0"
+      org.label-schema.schema-version="1.9"
 
 RUN \
     # 
