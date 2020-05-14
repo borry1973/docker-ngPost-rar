@@ -5,7 +5,7 @@
 #
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.9-v3.5.3
+FROM jlesage/baseimage-gui:alpine-3.11-glibc-v3.5.3
 
 # Docker image version is provided via build arg.
 ARG DOCKER_IMAGE_VERSION=unknown
@@ -31,7 +31,8 @@ RUN add-pkg \
         nodejs-current \
         npm \
         git \
-        python
+        python \
+        bash
 
 # Compile and install ngPost.
 
@@ -78,8 +79,3 @@ LABEL \
       org.label-schema.version="$DOCKER_IMAGE_VERSION" \
       org.label-schema.vcs-url="https://github.com/Tr4il/docker-ngPost" \
       org.label-schema.schema-version="1.9"
-
-RUN \
-    # 
-    add-pkg \
-        bash 
