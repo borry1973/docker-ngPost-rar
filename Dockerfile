@@ -53,16 +53,8 @@ RUN \
 
 RUN \
     # Download sources for parpar
-    echo "Downloading parpar" && \
-    cd /opt && \
-    git clone https://github.com/animetosho/ParPar.git && \
-    # Compile.
-    cd ParPar && \
-    npm install -g node-gyp \
-    node-gyp rebuild && \
-    # Install
-    npm install && \
-    ln -s bin/parpar.js /usr/bin/parpar
+    echo "Downloading & Installing ParPar" && \
+    npm install -g @animetosho/parpar --unsafe-perm    
 
 # Generate and install favicons.
 RUN \
