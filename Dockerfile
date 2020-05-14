@@ -26,11 +26,15 @@ RUN add-pkg \
         qt5-qtbase-dev \
         libssl1.1 \
         libressl-dev \
-        build-base
+        build-base \
+        p7zip \
+        nodejs-current \
+        npm \
+        git
 # Compile and install MediaInfo.
 
 RUN \
-    # Download sources.
+    # Download sources for ngPost.
     echo "Downloading ngPost package..." && \
     mkdir ngPost && \
     curl -# -L ${NGPOST_URL} | tar xz --strip 1 -C ngPost && \
@@ -42,6 +46,18 @@ RUN \
     cd && \
     # Cleanup.
     rm -rf /tmp/* /tmp/.[!.]*
+
+RUN \
+    # Download sources for parpar
+    echo "Downloading parpar" && \
+    cd /tmp && \
+    git clone https://github.com/animetosho/ParPar.git && \
+    # Compile.
+    cd ParPar && \
+    npm install -g node-gyp \
+    node-gyp rebuild && \
+    npm install && \
+    ln -s bin/parpar.js /usr/bin/parpar
 
 # Generate and install favicons.
 RUN \
