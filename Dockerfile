@@ -89,6 +89,8 @@ LABEL \
       org.label-schema.schema-version="1.0"
 
 RUN \
-    # Install ParPar dependencies
+    # 
     add-pkg \
-        bash \
+        bash 
+
+WORKDIR /root
