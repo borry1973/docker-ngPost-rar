@@ -93,4 +93,4 @@ RUN \
     add-pkg \
         bash 
 
-WORKDIR /root
+WORKDIR /storage
