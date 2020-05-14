@@ -27,12 +27,9 @@ RUN add-pkg \
         libssl1.1 \
         libressl-dev \
         build-base \
-        p7zip \
-        nodejs-current \
-        npm \
-        git \
-        python
-# Compile and install MediaInfo.
+        p7zip 
+
+# Compile and install ngPost.
 
 RUN \
     # Download sources for ngPost.
@@ -47,6 +44,14 @@ RUN \
     cd && \
     # Cleanup.
     rm -rf /tmp/* /tmp/.[!.]*
+
+RUN \
+    # Install ParPar dependencies
+    add-pkg \
+        nodejs-current \
+        npm \
+        git \
+        python
 
 RUN \
     # Download sources for parpar
