@@ -79,7 +79,6 @@ ENV APP_NAME="ngPost"
 # Define mountable directories.
 VOLUME ["/config"]
 VOLUME ["/storage"]
-VOLUME ["/mnt"]
 
 # Metadata.
 LABEL \
