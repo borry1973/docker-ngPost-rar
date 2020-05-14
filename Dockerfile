@@ -92,5 +92,3 @@ RUN \
     # 
     add-pkg \
         bash 
-
-WORKDIR /storage

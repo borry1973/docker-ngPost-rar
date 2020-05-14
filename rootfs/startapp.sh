@@ -1,3 +1,3 @@
 #!/usr/bin/with-contenv sh
 cd /storage
-exec /usr/bin/ngPost
+exec /usr/bin/ngPost --help
