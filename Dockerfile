@@ -11,7 +11,7 @@ FROM jlesage/baseimage-gui:alpine-3.11-glibc-v3.5.3
 ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
-ARG NGPOST_VERSION=4.7
+ARG NGPOST_VERSION=4.14
 
 # Define software download URLs.
 ARG NGPOST_URL=https://github.com/mbruel/ngPost/archive/v${NGPOST_VERSION}.tar.gz
@@ -27,10 +27,10 @@ RUN add-pkg \
         libssl1.1 \
         libressl-dev \
         build-base \
-        p7zip \
         nodejs-current \
         npm \
         git \
+        wget \
         python \
         bash
 
@@ -49,6 +49,17 @@ RUN \
     cd && \
     # Cleanup.
     rm -rf /tmp/* /tmp/.[!.]*
+
+# Install 7z (not p7zip)
+
+RUN \
+    mkdir /temp && cd /temp && \
+    wget https://www.7-zip.org/a/7z2102-linux-x64.tar.xz -o 7z.tar.xz && \
+    tar -xzf 7z.tar.xz && \
+    cp 7zz /usr/bin/7z && \
+    cd && \
+    rm -rf /temp/* /temp/.[!.]*
+
 
 # Compile and install ParPar.
 
@@ -78,4 +89,4 @@ LABEL \
       org.label-schema.description="Docker container for ngPost" \
       org.label-schema.version="$DOCKER_IMAGE_VERSION" \
       org.label-schema.vcs-url="https://github.com/Tr4il/docker-ngPost" \
-      org.label-schema.schema-version="1.9"
+      org.label-schema.schema-version="4.8"
