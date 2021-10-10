@@ -31,7 +31,7 @@ RUN add-pkg \
         npm \
         git \
         wget \
-        python \
+        python2-dev \
         bash
 
 # Compile and install ngPost.
