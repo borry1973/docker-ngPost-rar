@@ -5,13 +5,13 @@
 #
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.11-glibc-v3.5.3
+FROM jlesage/baseimage-gui:alpine-3.12-glibc-v3.5.7
 
 # Docker image version is provided via build arg.
 ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
-ARG NGPOST_VERSION=4.14
+ARG NGPOST_VERSION=4.15
 
 # Define software download URLs.
 ARG NGPOST_URL=https://github.com/mbruel/ngPost/archive/v${NGPOST_VERSION}.tar.gz
@@ -54,7 +54,7 @@ RUN \
 
 RUN \
     mkdir /temp && cd /temp && \
-    wget https://www.7-zip.org/a/7z2102-linux-x64.tar.xz -o 7z.tar.xz && \
+    wget https://www.7-zip.org/a/7z2103-linux-x64.tar.xz -o 7z.tar.xz && \
     tar -xzf 7z.tar.xz && \
     cp 7zz /usr/bin/7z && \
     cd && \
