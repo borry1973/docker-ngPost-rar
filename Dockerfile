@@ -76,6 +76,12 @@ RUN \
 # Add files.
 COPY rootfs/ /
 
+# add local files
+COPY root/ /
+
+# add unrar
+COPY --from=rar /usr/bin/rar-alpine /usr/bin/unrar
+
 # Set environment variables.
 ENV APP_NAME="ngPost"
 
