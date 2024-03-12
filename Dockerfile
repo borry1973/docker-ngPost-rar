@@ -59,8 +59,13 @@ RUN \
     cp 7zz /usr/bin/7z && \
     cd && \
     rm -rf /temp/* /temp/.[!.]*
-
-
+Run \
+mkdir /temp && cd /temp && \
+    wget https://www.rarlab.com/rar/rarlinux-x64-700b2.tar.gz &&\
+    tar -zxvf rarlinux-x64-700b2.tar.gz &&\
+    cp -v rar unrar /usr/bin/rar &&\
+    cd &&\
+    
 # Compile and install ParPar.
 
 RUN \
@@ -78,9 +83,6 @@ COPY rootfs/ /
 
 # add local files
 COPY root/ /
-
-# add unrar
-COPY --from=rar /usr/bin/rar-alpine /usr/bin/unrar
 
 # Set environment variables.
 ENV APP_NAME="ngPost"
