@@ -59,7 +59,7 @@ RUN \
     cp 7zz /usr/bin/7z && \
     cd && \
     rm -rf /temp/* /temp/.[!.]*
-Run \
+RUN \
 mkdir /temp && cd /temp && \
     wget https://www.rarlab.com/rar/rarlinux-x64-700b2.tar.gz &&\
     tar -zxvf rarlinux-x64-700b2.tar.gz &&\
